@@ -5,58 +5,10 @@
  */
 
 $(document).ready(function(){
-    /*$('#calcForm').bootstrapValidator({
-        container: '#messages',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            fullName: {
-                validators: {
-                    notEmpty: {
-                        message: 'The full name is required and cannot be empty'
-                    }
-                }
-            },
-            email: {
-                validators: {
-                    notEmpty: {
-                        message: 'The email address is required and cannot be empty'
-                    },
-                    emailAddress: {
-                        message: 'The email address is not valid'
-                    }
-                }
-            },
-            title: {
-                validators: {
-                    notEmpty: {
-                        message: 'The title is required and cannot be empty'
-                    },
-                    stringLength: {
-                        max: 100,
-                        message: 'The title must be less than 100 characters long'
-                    }
-                }
-            },
-            content: {
-                validators: {
-                    notEmpty: {
-                        message: 'The content is required and cannot be empty'
-                    },
-                    stringLength: {
-                        max: 500,
-                        message: 'The content must be less than 500 characters long'
-                    }
-                }
-            }
-        }
-    });*/
-    
+        
     $("#submit").click(function () {
 	var lumpSum = $("#lumpSum").val();
+        var returnValue = $("#annualAmount").val();
         var lowerLimit = lumpSum * (2.5/100);
         var upperLimit = lumpSum * (17.5/100);
         
@@ -64,10 +16,25 @@ $(document).ready(function(){
         
         if(optionSelected.toString() === 'Percentage')
         {
-            alert(lumpSum);
+            if(returnValue < 2.5 || returnValue > 17.5)
+            {
+                alert('Percenatge out of bounds!!!')
+                return false;
+            }
+                        
+            $("#annualAmount").val(lumpSum * (returnValue/100));
+            return true;
         }
-        alert('lala manje');
-        return false;
+        else
+        { 
+            if(returnValue < lowerLimit || returnValue > upperLimit)
+            {
+                alert('Amount out of bounds!!!')
+                return false;
+            }
+        }
+        
+        return true;
     });
 
     $("#selectAmount").click(function () {

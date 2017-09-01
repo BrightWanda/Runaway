@@ -38,6 +38,7 @@ class Admin extends Controller {
         }while($yearLumpSum > $minInvestLevel);
          
         $months = $months + $cnt * 12;
+        $months = round($months, 2);
         return Redirect::back()->with('status-results',$months);
     }
 }
